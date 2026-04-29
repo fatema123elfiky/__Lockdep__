@@ -25,7 +25,7 @@
 // thread 2 -->  5 , 4
 // thread 3 -->  5 , 6
 
-struct thread_info {
+struct processThreadInfo {
     int pid;
     int held_locks[MAX_LOCKS];
     int lock_count;
@@ -91,7 +91,7 @@ static int check_For_Safety(void) {
 
 
 /* Simulation function for generating test cases */
-static void simulate_Test(struct thread_info *test_cases, int *num_threads) {
+static void simulate_Test(struct processThreadInfo *test_cases, int *num_threads) {
 
     test_cases[0].pid           = 1;
     test_cases[0].lock_count    = 2;
@@ -113,10 +113,10 @@ static void simulate_Test(struct thread_info *test_cases, int *num_threads) {
 
 
 
-*/
+
 static int __init minidep_init(void) {
     int i, j, prev;
-    struct thread_info test_cases[MAX_THREADS];
+    struct processThreadInfo test_cases[MAX_THREADS];
     int num_threads = 0;
 
     memset(graph,        0, sizeof(graph));
@@ -154,7 +154,7 @@ static int __init minidep_init(void) {
             print_ans();
 
             if (!check_For_Safety())
-                return -EDEADLK;
+                return 0;
         }
         pr_info("\n");
     }

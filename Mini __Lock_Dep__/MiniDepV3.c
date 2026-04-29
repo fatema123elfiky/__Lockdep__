@@ -3,8 +3,8 @@
 #include <linux/init.h>
 #include <linux/string.h>
 
-#define MAX_THREADS 5 // threads
-#define MAX_LOCKS   40 // nodes
+#define MAX_THREADS 5
+#define MAX_LOCKS   40
 
 /*
  * detect cycle /// main algo --> dfs ----
@@ -25,25 +25,38 @@
 // thread 2 -->  5 , 4
 // thread 3 -->  5 , 6
 
-struct thread_info {
+struct processThreadInfo {
     int pid;
     int held_locks[MAX_LOCKS];
     int lock_count;
 };
 
-// replacing vector<vector<int>> graph
-static int  graph[MAX_LOCKS+1][MAX_LOCKS+1];
-static int  graph_degree[MAX_LOCKS+1];
+/* Main graph representation */
+static int graph[MAX_LOCKS + 1][MAX_LOCKS + 1];
+static int graph_degree[MAX_LOCKS + 1];
 
-static int vis[MAX_LOCKS+1];
-static int Pathstack[MAX_LOCKS+1];
+static int vis[MAX_LOCKS + 1];
+static int Pathstack[MAX_LOCKS + 1];
+
+/*Accumulator for storing the order of lock acquisitions */
+static int ans[MAX_THREADS * MAX_LOCKS];
+static int ans_size = 0;
+
+/* print the entire ans chain from the beginning, e.g.  4-->5-->4--> */
+static void print_ans(void) {
+    int k;
+    for (k = 0; k < ans_size; k++)
+        pr_cont("%d-->", ans[k]);
+    pr_cont("\n");
+}
 
 
+/*DFS function for main algorithm of deadlock detection */
 static int dfs(int i) {
+    int j;
     vis[i]       = 1;
     Pathstack[i] = 1;
 
-    int j;
     for (j = 0; j < graph_degree[i]; j++) {
         int x = graph[i][j];
         if (!vis[x]) {
@@ -57,17 +70,18 @@ static int dfs(int i) {
     return 0;
 }
 
-static int check_For_Safety(void ) {
+/* Safety check function */
+static int check_For_Safety(void) {
+    int k;
     memset(vis,       0, sizeof(vis));
     memset(Pathstack, 0, sizeof(Pathstack));
 
-    int k;
     for (k = 1; k <= MAX_LOCKS; k++) {
         if (!vis[k] && graph_degree[k] > 0) {
             if (dfs(k)) {
-                 pr_warn("\n\n=====================\n\n"
-                      "WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED \n\n===================="
-                      "\n\n ");
+                pr_warn("\n\n=====================\n\n"
+                        "WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED \n\n"
+                        "====================\n\n");
                 return 0;
             }
         }
@@ -75,7 +89,9 @@ static int check_For_Safety(void ) {
     return 1;
 }
 
-static void simulate_Test(struct thread_info *test_cases, int *num_threads) {
+
+/* Simulation function for generating test cases */
+static void simulate_Test(struct processThreadInfo *test_cases, int *num_threads) {
 
     test_cases[0].pid           = 1;
     test_cases[0].lock_count    = 2;
@@ -95,57 +111,59 @@ static void simulate_Test(struct thread_info *test_cases, int *num_threads) {
     *num_threads = 3;
 }
 
-static int __init minidep_init(void){
+
+
+
+static int __init minidep_init(void) {
+    int i, j, prev;
+    struct processThreadInfo test_cases[MAX_THREADS];
+    int num_threads = 0;
 
     memset(graph,        0, sizeof(graph));
     memset(graph_degree, 0, sizeof(graph_degree));
     memset(vis,          0, sizeof(vis));
 
-    struct thread_info test_cases[MAX_THREADS];
-    int num_threads = 0;
     simulate_Test(test_cases, &num_threads);
 
-    
-    
-
-    int i, j, prev;
     for (i = 0; i < num_threads; i++) {
 
-        /*printing that thread has locks */
+        /* printing that thread has locks */
         pr_info("MiniDep: thread %d has locks : ", test_cases[i].pid);
-        for (j = 0; j < test_cases[i].lock_count; j++) {
-             pr_info("%d-->", test_cases[i].held_locks[j]);
-        }
-        pr_info("\n\n"); 
+        for (j = 0; j < test_cases[i].lock_count; j++)
+            pr_cont("%d-->", test_cases[i].held_locks[j]);
+        pr_cont("\n\n");
 
         
-        if (test_cases[i].lock_count > 0){
-             ans.
-             pr_info("%d-->",test_cases[i].held_locks[0]);}
+        if (test_cases[i].lock_count > 0)
+            ans[ans_size++] = test_cases[i].held_locks[0];
 
         prev = -1;
         for (j = 0; j < test_cases[i].lock_count; j++, prev++) {
-            if (prev == -1)
+            if (prev == -1) {
+                print_ans();
                 continue;
+            }
 
-            // graph[from].push_back(to)
-            graph[test_cases[i].held_locks[prev]][graph_degree[test_cases[i].held_locks[prev]]] = test_cases[i].held_locks[j];
+            /* graph[from].push_back(to) */
+            graph[test_cases[i].held_locks[prev]][graph_degree[test_cases[i].held_locks[prev]]]
+                = test_cases[i].held_locks[j];
             graph_degree[test_cases[i].held_locks[prev]]++;
 
-            pr_info("%d-->", test_cases[i].held_locks[j]);
+            
+            ans[ans_size++] = test_cases[i].held_locks[j];
+            print_ans();
 
             if (!check_For_Safety())
-                return -EDEADLK;;
+                return 0;
         }
         pr_info("\n");
     }
+
     pr_info("MiniDep: no deadlock detected.\n");
     return 0;
 }
 
-
-static void __exit minidep_exit(void)
-{
+static void __exit minidep_exit(void) {
     pr_info("MiniDep: unloading module\n");
 }
 
@@ -154,4 +172,4 @@ module_exit(minidep_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Student");
-MODULE_DESCRIPTION("MiniDep: userspace deadlock detector ported to kernel module");
+MODULE_DESCRIPTION("MiniDep: deadlock detector as kernel module");

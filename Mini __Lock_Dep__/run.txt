@@ -1,0 +1,664 @@
+ansar@Code-Executioner:~/embedded-linux-qemu-labs/kernel/linux$ mkdir ~/minidep
+ansar@Code-Executioner:~/embedded-linux-qemu-labs/kernel/linux$ cp ~/Downloads/MiniDep.c ~/minidep/
+ansar@Code-Executioner:~/embedded-linux-qemu-labs/kernel/linux$ cp ~/Downloads/makefile ~/minidep/
+ansar@Code-Executioner:~/embedded-linux-qemu-labs/kernel/linux$ cd ~/minidep
+ansar@Code-Executioner:~/minidep$ make
+make -C /home/ansar/embedded-linux-qemu-labs/kernel/linux M=/home/ansar/minidep ARCH=arm CROSS_COMPILE=arm-linux- modules
+  CC [M]  /home/ansar/minidep/MiniDep.o
+  MODPOST /home/ansar/minidep/Module.symvers
+  LD [M]  /home/ansar/minidep/MiniDep.ko
+ansar@Code-Executioner:~/minidep$ cp ~/minidep/MiniDep.ko /home/ansar/embedded-linux-qemu-labs/tinysystem/nfsroot
+
+-------------------------------------------------------------------------------------------------------------
+ansar@Code-Executioner:~/embedded-linux-qemu-labs/bootloader$ sudo qemu-system-arm -M vexpress-a9 -m 128M -nographic -kernel u-boot/u-boot -sd sd.img -net tap,script=./qemu-myifup -net nic
+[sudo: authenticate] Password: 
+WARNING: Image format was not specified for 'sd.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+
+
+U-Boot 2023.01 (Mar 08 2026 - 21:53:01 +0200)
+
+DRAM:  128 MiB
+WARNING: Caches not enabled
+Core:  18 devices, 10 uclasses, devicetree: embed
+Flash: 64 MiB
+MMC:   mmci@5000: 0
+Loading Environment from MMC... OK
+In:    serial
+Out:   serial
+Err:   serial
+Net:   eth0: ethernet@3,02000000
+Hit any key to stop autoboot:  0 
+smc911x: detected LAN9118 controller
+smc911x: phy initialized
+smc911x: MAC 52:54:00:12:34:56
+Using ethernet@3,02000000 device
+TFTP from server 192.168.0.1; our IP address is 192.168.0.100
+Filename 'zImage'.
+Load address: 0x60008000
+Loading: #################################################################
+	 #################################################################
+	 #################################################################
+	 #################################################################
+	 #################################################################
+	 #################################################################
+	 ###############################
+	 5.7 MiB/s
+done
+Bytes transferred = 6174424 (5e36d8 hex)
+smc911x: MAC 52:54:00:12:34:56
+smc911x: detected LAN9118 controller
+smc911x: phy initialized
+smc911x: MAC 52:54:00:12:34:56
+Using ethernet@3,02000000 device
+TFTP from server 192.168.0.1; our IP address is 192.168.0.100
+Filename 'vexpress-v2p-ca9.dtb'.
+Load address: 0x61000000
+Loading: #
+	 3.4 MiB/s
+done
+Bytes transferred = 14081 (3701 hex)
+smc911x: MAC 52:54:00:12:34:56
+Kernel image @ 0x60008000 [ 0x000000 - 0x5e36d8 ]
+## Flattened Device Tree blob at 61000000
+   Booting using the fdt blob at 0x61000000
+Working FDT set to 61000000
+   Loading Device Tree to 66b15000, end 66b1b700 ... OK
+Working FDT set to 66b15000
+
+Starting kernel ...
+
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+alsa: Could not initialize DAC
+alsa: Failed to open `default':
+alsa: Reason: Host is down
+audio: Could not create a backend for voice `lm4549.out'
+Booting Linux on physical CPU 0x0
+Linux version 6.1.166 (ansar@Code-Executioner) (arm-linux-gcc (crosstool-NG 1.28.0) 14.3.0, GNU ld (crosstool-NG 1.28.0) 2.45) #6 SMP Mon Apr 27 23:43:55 EEST 2026
+CPU: ARMv7 Processor [410fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT nonaliasing instruction cache
+OF: fdt: Machine model: V2P-CA9
+OF: fdt: Ignoring memory block 0x80000000 - 0x80000004
+Memory policy: Data cache writeback
+Reserved memory: created DMA memory pool at 0x4c000000, size 8 MiB
+OF: reserved mem: initialized node vram@4c000000, compatible id shared-dma-pool
+cma: Reserved 16 MiB at 0x67000000
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x0000000067ffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x0000000067ffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x0000000067ffffff]
+CPU: All CPU(s) started in SVC mode.
+percpu: Embedded 376 pages/cpu s1508604 r8192 d23300 u1540096
+Built 1 zonelists, mobility grouping on.  Total pages: 32512
+Kernel command line: console=ttyAMA0 root=/dev/nfs ip=192.168.0.100 nfsroot=192.168.0.1:/home/ansar/embedded-linux-qemu-labs/tinysystem/nfsroot,nfsvers=3,tcp rw
+printk: log_buf_len individual max cpu contribution: 4096 bytes
+printk: log_buf_len total cpu_extra contributions: 12288 bytes
+printk: log_buf_len min size: 16384 bytes
+printk: log_buf_len: 32768 bytes
+printk: early log buf free: 14804(90%)
+Dentry cache hash table entries: 16384 (order: 4, 65536 bytes, linear)
+Inode-cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+Memory: 85544K/131072K available (9216K kernel code, 747K rwdata, 2752K rodata, 2048K init, 6658K bss, 29144K reserved, 16384K cma-reserved)
+SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+trace event string verifier disabled
+Running RCU self tests
+rcu: Hierarchical RCU implementation.
+rcu: 	RCU event tracing is enabled.
+rcu: 	RCU lockdep checking is enabled.
+rcu: 	RCU restricting CPUs from NR_CPUS=8 to nr_cpu_ids=4.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+GIC CPU mask not found - kernel will fail to boot.
+GIC CPU mask not found - kernel will fail to boot.
+L2C: platform modifies aux control register: 0x02020000 -> 0x02420000
+L2C: DT/platform modifies aux control register: 0x02020000 -> 0x02420000
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310 full line of zeros enabled for Cortex-A9
+L2C-310 dynamic clock gating disabled, standby mode disabled
+L2C-310 cache controller enabled, 8 ways, 128 kB
+L2C-310: CACHE_ID 0x410000c8, AUX_CTRL 0x46420001
+rcu: srcu_init: Setting srcu_struct sizes based on contention.
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+clocksource: arm,sp804: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275 ns
+smp_twd: clock not found -2
+Console: colour dummy device 80x30
+Lock dependency validator: Copyright (c) 2006 Red Hat, Inc., Ingo Molnar
+... MAX_LOCKDEP_SUBCLASSES:  8
+... MAX_LOCK_DEPTH:          48
+... MAX_LOCKDEP_KEYS:        8192
+... CLASSHASH_SIZE:          4096
+... MAX_LOCKDEP_ENTRIES:     32768
+... MAX_LOCKDEP_CHAINS:      65536
+... CHAINHASH_SIZE:          32768
+ memory used by lock dependency info: 4317 kB
+ memory used for stack traces: 2112 kB
+ per task-struct memory footprint: 2304 bytes
+Calibrating local timer... 100.63MHz.
+Calibrating delay loop... 944.53 BogoMIPS (lpj=4722688)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+rcu: 	Max phase no-delay instances is 1000.
+smp: Bringing up secondary CPUs ...
+smp: Brought up 1 node, 1 CPU
+SMP: Total of 1 processors activated (944.53 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 0
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+cpuidle: using governor ladder
+hw-breakpoint: debug architecture 0x4 unsupported.
+Serial: AMBA PL011 UART driver
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /clcd@10020000
+/clcd@10020000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+/clcd@10020000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /clcd@10020000
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Advanced Linux Sound Architecture Driver Initialized.
+clocksource: Switched to clocksource arm,sp804
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 128 (order: 1, 6144 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+TCP bind hash table entries: 1024 (order: 5, 98304 bytes, linear)
+TCP: Hash tables configured (established 1024 bind 1024)
+UDP hash table entries: 256 (order: 3, 28672 bytes, linear)
+UDP-Lite hash table entries: 256 (order: 3, 28672 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+hw perfevents: enabled with armv7_cortex_a9 PMU driver, 7 counters available
+workingset: timestamp_bits=30 max_order=15 bucket_order=0
+squashfs: version 4.0 (2009/01/31) Phillip Lougher
+jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+9p: Installing v9fs 9p2000 file system support
+io scheduler mq-deadline registered
+io scheduler kyber registered
+OF: graph: no port node found in /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@60
+sii902x 0-0060: supply iovcc not found, using dummy regulator
+sii902x 0-0060: supply cvcc12 not found, using dummy regulator
+simple-pm-bus bus@40000000:motherboard-bus@40000000:iofpga@7,00000000: Failed to create device link (0x180) with dcc:tcrefclk
+simple-pm-bus bus@40000000:motherboard-bus@40000000:iofpga@7,00000000: Failed to create device link (0x180) with dcc:tcrefclk
+physmap-flash 40000000.flash: physmap platform flash device: [mem 0x40000000-0x43ffffff]
+40000000.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000
+Intel/Sharp Extended Query Table at 0x0031
+Using buffer write method
+physmap-flash 40000000.flash: physmap platform flash device: [mem 0x44000000-0x47ffffff]
+40000000.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000
+Intel/Sharp Extended Query Table at 0x0031
+Using buffer write method
+Concatenating MTD devices:
+(0): "40000000.flash"
+(1): "40000000.flash"
+into device "40000000.flash"
+physmap-flash 48000000.psram: physmap platform flash device: [mem 0x48000000-0x49ffffff]
+smsc911x 4e000000.ethernet eth0: MAC Address: 52:54:00:12:34:56
+isp1760 4f000000.usb: isp1760 bus width: 32, oc: digital
+isp1760 4f000000.usb: NXP ISP1760 USB Host Controller
+isp1760 4f000000.usb: new USB bus registered, assigned bus number 1
+isp1760 4f000000.usb: Scratch test failed. 0x00000000
+isp1760 4f000000.usb: can't setup: -19
+isp1760 4f000000.usb: USB bus 1 deregistered
+usbcore: registered new interface driver usb-storage
+rtc-pl031 10017000.rtc: registered as rtc0
+rtc-pl031 10017000.rtc: setting system clock to 2026-04-29T21:32:05 UTC (1777498325)
+mmci-pl18x 10005000.mmci: Got CD GPIO
+mmci-pl18x 10005000.mmci: Got WP GPIO
+mmci-pl18x 10005000.mmci: mmc0: PL181 manf 41 rev0 at 0x10005000 irq 35,36 (pio)
+ledtrig-cpu: registered to indicate activity on CPUs
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+input: AT Raw Set 2 keyboard as /devices/platform/bus@40000000/bus@40000000:motherboard-bus@40000000/bus@40000000:motherboard-bus@40000000:iofpga@7,00000000/10006000.kmi/serio0/input/input0
+mmc0: new SD card at address 8551
+mmcblk0: mmc0:8551 QEMU! 1.00 GiB 
+ mmcblk0: p1 p2 p3
+aaci-pl041 10004000.aaci: ARM AC'97 Interface PL041 rev0 at 0x10004000, irq 37
+aaci-pl041 10004000.aaci: FIFO 512 entries
+NET: Registered PF_PACKET protocol family
+9pnet: Installing 9P2000 support
+Registering SWP/SWPB emulation handler
+10009000.uart: ttyAMA0 at MMIO 0x10009000 (irq = 38, base_baud = 0) is a PL011 rev1
+printk: console [ttyAMA0] enabled
+1000a000.uart: ttyAMA1 at MMIO 0x1000a000 (irq = 39, base_baud = 0) is a PL011 rev1
+1000b000.uart: ttyAMA2 at MMIO 0x1000b000 (irq = 40, base_baud = 0) is a PL011 rev1
+1000c000.uart: ttyAMA3 at MMIO 0x1000c000 (irq = 41, base_baud = 0) is a PL011 rev1
+drm-clcd-pl111 1001f000.clcd: assigned reserved memory node vram@4c000000
+drm-clcd-pl111 1001f000.clcd: using device-specific reserved memory
+drm-clcd-pl111 1001f000.clcd: core tile graphics present
+drm-clcd-pl111 1001f000.clcd: this device will be deactivated
+drm-clcd-pl111 1001f000.clcd: Versatile Express init failed - -19
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+input: ImExPS/2 Generic Explorer Mouse as /devices/platform/bus@40000000/bus@40000000:motherboard-bus@40000000/bus@40000000:motherboard-bus@40000000:iofpga@7,00000000/10007000.kmi/serio1/input/input2
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+Generic PHY 4e000000.ethernet-ffffffff:01: attached PHY driver (mii_bus:phy_addr=4e000000.ethernet-ffffffff:01, irq=POLL)
+smsc911x 4e000000.ethernet eth0: SMSC911x/921x identified at 0x8c990000, IRQ: 30
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+IP-Config: Guessing netmask 255.255.255.0
+IP-Config: Complete:
+     device=eth0, hwaddr=52:54:00:12:34:56, ipaddr=192.168.0.100, mask=255.255.255.0, gw=255.255.255.255
+     host=192.168.0.100, domain=, nis-domain=(none)
+     bootserver=255.255.255.255, rootserver=192.168.0.1, rootpath=
+clk: Disabling unused clocks
+ALSA device list:
+  #0: ARM AC'97 Interface PL041 rev0 at 0x10004000, irq 37
+VFS: Mounted root (nfs filesystem) on device 0:13.
+Freeing unused kernel image (initmem) memory: 2048K
+Run /sbin/init as init process
+starting pid 56, tty '': '/etc/init.d/rcS'
+EXT4-fs (mmcblk0p3): recovery complete
+EXT4-fs (mmcblk0p3): mounted filesystem with ordered data mode. Quota mode: disabled.
+
+Please press Enter to activate this console. 
+starting pid 65, tty '/dev/ttyAMA0': '/bin/sh'
+
+
+BusyBox v1.37.0 (2026-03-29 17:21:01 EET) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+# drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+amba 100e0000.memory-controller: deferred probe pending
+amba 100e1000.memory-controller: deferred probe pending
+amba 100e5000.watchdog: deferred probe pending
+i2c 0-0039: deferred probe pending
+amba 1000f000.wdt: deferred probe pending
+amba 10020000.clcd: deferred probe pending
+
+# insmod /MiniDep.ko
+MiniDep: loading out-of-tree module taints kernel.
+MiniDep: thread 1 has locks : 4-->5-->
+
+4-->
+4-->5-->
+
+MiniDep: thread 2 has locks : 5-->4-->
+
+4-->5-->5-->
+4-->5-->5-->4-->
+
+
+=====================
+
+WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED 
+
+====================
+
+# dmesg
+Booting Linux on physical CPU 0x0
+Linux version 6.1.166 (ansar@Code-Executioner) (arm-linux-gcc (crosstool-NG 1.28.0) 14.3.0, GNU ld (crosstool-NG 1.28.0) 2.45) #6 SMP Mon Apr 27 23:43:55 EEST 2026
+CPU: ARMv7 Processor [410fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT nonaliasing instruction cache
+OF: fdt: Machine model: V2P-CA9
+OF: fdt: Ignoring memory block 0x80000000 - 0x80000004
+Memory policy: Data cache writeback
+Reserved memory: created DMA memory pool at 0x4c000000, size 8 MiB
+OF: reserved mem: initialized node vram@4c000000, compatible id shared-dma-pool
+cma: Reserved 16 MiB at 0x67000000
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x0000000067ffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x0000000067ffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x0000000067ffffff]
+CPU: All CPU(s) started in SVC mode.
+percpu: Embedded 376 pages/cpu s1508604 r8192 d23300 u1540096
+pcpu-alloc: s1508604 r8192 d23300 u1540096 alloc=376*4096
+pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+Built 1 zonelists, mobility grouping on.  Total pages: 32512
+Kernel command line: console=ttyAMA0 root=/dev/nfs ip=192.168.0.100 nfsroot=192.168.0.1:/home/ansar/embedded-linux-qemu-labs/tinysystem/nfsroot,nfsvers=3,tcp rw
+printk: log_buf_len individual max cpu contribution: 4096 bytes
+printk: log_buf_len total cpu_extra contributions: 12288 bytes
+printk: log_buf_len min size: 16384 bytes
+printk: log_buf_len: 32768 bytes
+printk: early log buf free: 14804(90%)
+Dentry cache hash table entries: 16384 (order: 4, 65536 bytes, linear)
+Inode-cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+Memory: 85544K/131072K available (9216K kernel code, 747K rwdata, 2752K rodata, 2048K init, 6658K bss, 29144K reserved, 16384K cma-reserved)
+SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+trace event string verifier disabled
+Running RCU self tests
+rcu: Hierarchical RCU implementation.
+rcu: 	RCU event tracing is enabled.
+rcu: 	RCU lockdep checking is enabled.
+rcu: 	RCU restricting CPUs from NR_CPUS=8 to nr_cpu_ids=4.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+GIC CPU mask not found - kernel will fail to boot.
+GIC CPU mask not found - kernel will fail to boot.
+L2C: platform modifies aux control register: 0x02020000 -> 0x02420000
+L2C: DT/platform modifies aux control register: 0x02020000 -> 0x02420000
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310 full line of zeros enabled for Cortex-A9
+L2C-310 dynamic clock gating disabled, standby mode disabled
+L2C-310 cache controller enabled, 8 ways, 128 kB
+L2C-310: CACHE_ID 0x410000c8, AUX_CTRL 0x46420001
+rcu: srcu_init: Setting srcu_struct sizes based on contention.
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+clocksource: arm,sp804: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275 ns
+smp_twd: clock not found -2
+Console: colour dummy device 80x30
+Lock dependency validator: Copyright (c) 2006 Red Hat, Inc., Ingo Molnar
+... MAX_LOCKDEP_SUBCLASSES:  8
+... MAX_LOCK_DEPTH:          48
+... MAX_LOCKDEP_KEYS:        8192
+... CLASSHASH_SIZE:          4096
+... MAX_LOCKDEP_ENTRIES:     32768
+... MAX_LOCKDEP_CHAINS:      65536
+... CHAINHASH_SIZE:          32768
+ memory used by lock dependency info: 4317 kB
+ memory used for stack traces: 2112 kB
+ per task-struct memory footprint: 2304 bytes
+Calibrating local timer... 100.63MHz.
+Calibrating delay loop... 944.53 BogoMIPS (lpj=4722688)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+rcu: 	Max phase no-delay instances is 1000.
+smp: Bringing up secondary CPUs ...
+smp: Brought up 1 node, 1 CPU
+SMP: Total of 1 processors activated (944.53 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 0
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+cpuidle: using governor ladder
+hw-breakpoint: debug architecture 0x4 unsupported.
+Serial: AMBA PL011 UART driver
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /clcd@10020000
+/clcd@10020000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+SCSI subsystem initialized
+libata version 3.00 loaded.
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+/clcd@10020000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/clcd@1f000
+/bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@39: Fixed dependency cycle(s) with /clcd@10020000
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Advanced Linux Sound Architecture Driver Initialized.
+clocksource: Switched to clocksource arm,sp804
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 128 (order: 1, 6144 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+TCP bind hash table entries: 1024 (order: 5, 98304 bytes, linear)
+TCP: Hash tables configured (established 1024 bind 1024)
+UDP hash table entries: 256 (order: 3, 28672 bytes, linear)
+UDP-Lite hash table entries: 256 (order: 3, 28672 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+hw perfevents: enabled with armv7_cortex_a9 PMU driver, 7 counters available
+workingset: timestamp_bits=30 max_order=15 bucket_order=0
+squashfs: version 4.0 (2009/01/31) Phillip Lougher
+jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+9p: Installing v9fs 9p2000 file system support
+io scheduler mq-deadline registered
+io scheduler kyber registered
+OF: graph: no port node found in /bus@40000000/motherboard-bus@40000000/iofpga@7,00000000/i2c@16000/dvi-transmitter@60
+sii902x 0-0060: supply iovcc not found, using dummy regulator
+sii902x 0-0060: supply cvcc12 not found, using dummy regulator
+simple-pm-bus bus@40000000:motherboard-bus@40000000:iofpga@7,00000000: Failed to create device link (0x180) with dcc:tcrefclk
+simple-pm-bus bus@40000000:motherboard-bus@40000000:iofpga@7,00000000: Failed to create device link (0x180) with dcc:tcrefclk
+physmap-flash 40000000.flash: physmap platform flash device: [mem 0x40000000-0x43ffffff]
+40000000.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000
+Intel/Sharp Extended Query Table at 0x0031
+Using buffer write method
+erase region 0: offset=0x0,size=0x40000,blocks=256
+physmap-flash 40000000.flash: physmap platform flash device: [mem 0x44000000-0x47ffffff]
+40000000.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000
+Intel/Sharp Extended Query Table at 0x0031
+Using buffer write method
+erase region 0: offset=0x0,size=0x40000,blocks=256
+Concatenating MTD devices:
+(0): "40000000.flash"
+(1): "40000000.flash"
+into device "40000000.flash"
+physmap-flash 48000000.psram: physmap platform flash device: [mem 0x48000000-0x49ffffff]
+smsc911x 4e000000.ethernet eth0: MAC Address: 52:54:00:12:34:56
+isp1760 4f000000.usb: isp1760 bus width: 32, oc: digital
+isp1760 4f000000.usb: NXP ISP1760 USB Host Controller
+isp1760 4f000000.usb: new USB bus registered, assigned bus number 1
+isp1760 4f000000.usb: Scratch test failed. 0x00000000
+isp1760 4f000000.usb: can't setup: -19
+isp1760 4f000000.usb: USB bus 1 deregistered
+usbcore: registered new interface driver usb-storage
+rtc-pl031 10017000.rtc: registered as rtc0
+rtc-pl031 10017000.rtc: setting system clock to 2026-04-29T21:32:05 UTC (1777498325)
+mmci-pl18x 10005000.mmci: Got CD GPIO
+mmci-pl18x 10005000.mmci: Got WP GPIO
+mmci-pl18x 10005000.mmci: mmc0: PL181 manf 41 rev0 at 0x10005000 irq 35,36 (pio)
+ledtrig-cpu: registered to indicate activity on CPUs
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+input: AT Raw Set 2 keyboard as /devices/platform/bus@40000000/bus@40000000:motherboard-bus@40000000/bus@40000000:motherboard-bus@40000000:iofpga@7,00000000/10006000.kmi/serio0/input/input0
+mmc0: new SD card at address 8551
+mmcblk0: mmc0:8551 QEMU! 1.00 GiB 
+ mmcblk0: p1 p2 p3
+aaci-pl041 10004000.aaci: ARM AC'97 Interface PL041 rev0 at 0x10004000, irq 37
+aaci-pl041 10004000.aaci: FIFO 512 entries
+NET: Registered PF_PACKET protocol family
+9pnet: Installing 9P2000 support
+Registering SWP/SWPB emulation handler
+10009000.uart: ttyAMA0 at MMIO 0x10009000 (irq = 38, base_baud = 0) is a PL011 rev1
+printk: console [ttyAMA0] enabled
+1000a000.uart: ttyAMA1 at MMIO 0x1000a000 (irq = 39, base_baud = 0) is a PL011 rev1
+1000b000.uart: ttyAMA2 at MMIO 0x1000b000 (irq = 40, base_baud = 0) is a PL011 rev1
+1000c000.uart: ttyAMA3 at MMIO 0x1000c000 (irq = 41, base_baud = 0) is a PL011 rev1
+drm-clcd-pl111 1001f000.clcd: assigned reserved memory node vram@4c000000
+drm-clcd-pl111 1001f000.clcd: using device-specific reserved memory
+drm-clcd-pl111 1001f000.clcd: core tile graphics present
+drm-clcd-pl111 1001f000.clcd: this device will be deactivated
+drm-clcd-pl111 1001f000.clcd: Versatile Express init failed - -19
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+input: ImExPS/2 Generic Explorer Mouse as /devices/platform/bus@40000000/bus@40000000:motherboard-bus@40000000/bus@40000000:motherboard-bus@40000000:iofpga@7,00000000/10007000.kmi/serio1/input/input2
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+Generic PHY 4e000000.ethernet-ffffffff:01: attached PHY driver (mii_bus:phy_addr=4e000000.ethernet-ffffffff:01, irq=POLL)
+smsc911x 4e000000.ethernet eth0: SMSC911x/921x identified at 0x8c990000, IRQ: 30
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+IP-Config: Guessing netmask 255.255.255.0
+IP-Config: Complete:
+     device=eth0, hwaddr=52:54:00:12:34:56, ipaddr=192.168.0.100, mask=255.255.255.0, gw=255.255.255.255
+     host=192.168.0.100, domain=, nis-domain=(none)
+     bootserver=255.255.255.255, rootserver=192.168.0.1, rootpath=
+clk: Disabling unused clocks
+ALSA device list:
+  #0: ARM AC'97 Interface PL041 rev0 at 0x10004000, irq 37
+VFS: Mounted root (nfs filesystem) on device 0:13.
+Freeing unused kernel image (initmem) memory: 2048K
+Run /sbin/init as init process
+  with arguments:
+    /sbin/init
+  with environment:
+    HOME=/
+    TERM=linux
+EXT4-fs (mmcblk0p3): recovery complete
+EXT4-fs (mmcblk0p3): mounted filesystem with ordered data mode. Quota mode: disabled.
+drm-clcd-pl111 10020000.clcd: DVI muxed to daughterboard 1 (core tile) CLCD
+drm-clcd-pl111 10020000.clcd: initializing Versatile Express PL111
+amba 100e0000.memory-controller: deferred probe pending
+amba 100e1000.memory-controller: deferred probe pending
+amba 100e5000.watchdog: deferred probe pending
+i2c 0-0039: deferred probe pending
+amba 1000f000.wdt: deferred probe pending
+amba 10020000.clcd: deferred probe pending
+MiniDep: loading out-of-tree module taints kernel.
+MiniDep: thread 1 has locks : 4-->5-->
+
+4-->
+4-->5-->
+
+MiniDep: thread 2 has locks : 5-->4-->
+
+4-->5-->5-->
+4-->5-->5-->4-->
+
+
+=====================
+
+WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED 
+
+====================
+
+# dmesg | grep Miniep
+# dmesg | grep Minidep
+# dmesg | grep MiniDep
+MiniDep: loading out-of-tree module taints kernel.
+MiniDep: thread 1 has locks : 4-->5-->
+MiniDep: thread 2 has locks : 5-->4-->
+# rmmod MiniDep
+MiniDep: unloading module
+# insmod /MiniDep.korandom: crng init done
+
+MiniDep: thread 1 has locks : 4-->5-->
+
+4-->
+4-->5-->
+
+MiniDep: thread 2 has locks : 5-->4-->
+
+4-->5-->5-->
+4-->5-->5-->4-->
+
+
+=====================
+
+WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED 
+
+====================
+
+# 
+
