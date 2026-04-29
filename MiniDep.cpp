@@ -1,14 +1,29 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
+
+
 using namespace std;
-#define MAX_THREADS 5 //
+#define MAX_THREADS 5 // threads
 #define MAX_LOCKS   40 // nodes
 /*
  * detect cycle /// main algo --> dfs ----
  * build graph /// how to listen to threads + thread? --> locks
  * tracking --> // listening ???
- *
+ * locks --> graph
+ * graph --> nodes --> locks
  * */
+
+/////////////////// JUST TESTS ///////////////////
+// th1 --> 4
+// th2 --> 4 , 5
+// th3 --> 4 , 5
+// 4 -> 4 -> 4 -> 5 -> 4
+
+// thread lock --> A , B
+// thread 1 -->  4 , 5
+// thread 2 -->  5 , 4
+// thread 3 -->  5 , 6
 
 struct thread_info {
     pid_t pid;
@@ -16,30 +31,49 @@ struct thread_info {
     int lock_count;
     thread_info(int pid , int lock_count ):pid(pid), lock_count(lock_count){}
 };
-// thread lock --> A , B
-// thread 1 -->  4 , 5
-// thread 2 -->  5 , 4
-// thread 3 -->  5 , 6
 
-// locks --> graph
-// graph --> nodes --> locks
 
 vector<vector<int>>graph;
-vector<bool>vis;
-bool cycle=false;
-void  dfs(int par , int i){
+bool vis[MAX_LOCKS+1];
+bool Pathstack[MAX_LOCKS+1];
 
-    vis[i]=true;
-    for(auto x : graph[i]){
-        if(x==i)continue;
-        if(!vis[x]){
-            dfs(i,x);
-        }else{
-            cycle=true;
+
+bool dfs(int i) {
+    vis[i]       = true;
+    Pathstack[i] = true;
+
+    for (auto x : graph[i]) {
+        if (!vis[x]) {
+            if (dfs(x)) return true;
+        } else if (Pathstack[x]) {
+            return true;
         }
     }
 
+    Pathstack[i] = false;
+    return false;
 }
+bool check_For_Safety (){
+    memset(vis,false, sizeof(vis));
+    memset(Pathstack, false, sizeof(Pathstack));
+    for (int k = 1; k <= MAX_LOCKS; ++k) {
+        if(!vis[k] && graph[k].size()>0) {
+            if(dfs(k)) {
+                cout<<"\n\n=====================\n\n"
+                      "WARNING : THERE IS A DEADLOCK HERE !!! , THREADS ARE STOPPED \n\n===================="
+                      "\n\n ";
+                return false;
+            }
+
+        }
+    }
+
+    return true;
+
+}
+
+
+
 
 vector<thread_info> simulate_Test (){
     thread_info th1 = thread_info(1,2);
@@ -57,35 +91,29 @@ vector<thread_info> simulate_Test (){
 int main(){
 
     graph.assign(MAX_LOCKS+1,{});
-    vis.assign(MAX_LOCKS+1,false);
-
+    memset(vis,false, sizeof(vis));
 
     // hard code tests
     vector<thread_info >test_cases=simulate_Test();// as tracker
 
     for (int i = 0; i < test_cases.size(); ++i) {//th1 , th2 , th3
-        // th1 --> 4
-        // th2 --> 4 , 5
-        // th3 --> 4 , 5
-        // 4 -> 4 -> 4 -> 5 -> 4
+
+
         if(test_cases[i].lock_count>0)
             cout<<test_cases[i].held_locks[0]<<"-->";
+
         for (int j = 0,prev=-1; j < test_cases[i].lock_count; ++j,prev++) {
             if(prev==-1)
                 continue;
             graph[test_cases[i].held_locks[prev]].push_back(test_cases[i].held_locks[j]);
             cout<<test_cases[i].held_locks[j]<<"-->";
-            vis.assign(MAX_LOCKS+1,false);
-            for (int k = 1; k <= MAX_LOCKS; ++k) {
-                if(!vis[k] && graph[k].size()>0) {
-                    dfs(-1, k);
-                    if(cycle)
-                        break;
-                    cycle=false;
-                }
-            }
+
+           if(!check_For_Safety())
+               return 1;
 
         }
+
+
 
     }
 
