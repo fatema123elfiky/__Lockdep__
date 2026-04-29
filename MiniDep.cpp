@@ -26,7 +26,7 @@ using namespace std;
 // thread 3 -->  5 , 6
 
 struct thread_info {
-    pid_t pid;
+    int pid;
     int held_locks[MAX_LOCKS];
     int lock_count;
     thread_info(int pid , int lock_count ):pid(pid), lock_count(lock_count){}
