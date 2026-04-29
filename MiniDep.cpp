@@ -92,26 +92,37 @@ int main(){
 
     graph.assign(MAX_LOCKS+1,{});
     memset(vis,false, sizeof(vis));
+    vector<string>ans;
 
     // hard code tests
     vector<thread_info >test_cases=simulate_Test();// as tracker
 
     for (int i = 0; i < test_cases.size(); ++i) {//th1 , th2 , th3
 
+        cout<<"MiniDep: thread"<< test_cases[i].pid <<" has locks : ";
+        for(int idx =0 ;idx<test_cases[i].lock_count;idx++)
+            cout<<test_cases[i].held_locks[idx]<<"-->";
+        cout<<"\n\n";
 
         if(test_cases[i].lock_count>0)
-            cout<<test_cases[i].held_locks[0]<<"-->";
-
+            ans.push_back(to_string(test_cases[i].held_locks[0])),ans.push_back("-->");
+        cout<<ans[0]<<ans[1]<<'\n';
         for (int j = 0,prev=-1; j < test_cases[i].lock_count; ++j,prev++) {
             if(prev==-1)
                 continue;
             graph[test_cases[i].held_locks[prev]].push_back(test_cases[i].held_locks[j]);
-            cout<<test_cases[i].held_locks[j]<<"-->";
+            ans.push_back(to_string(test_cases[i].held_locks[j]));
+            ans.push_back("-->");
 
            if(!check_For_Safety())
                return 1;
 
+           for(auto ss : ans) // printing graph
+               cout<<ss;
+           cout<<"\n";
+
         }
+        cout<<"\n";
 
 
 
